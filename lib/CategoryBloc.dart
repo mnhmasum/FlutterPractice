@@ -1,36 +1,18 @@
 import 'dart:async';
-import 'CategoryEvent.dart';
+import 'package:bloc/bloc.dart';
 
-class CategoryBloc{
-  int _counter = 0;
+enum CategoryEvent { increment } // 1
 
-  final _counterStateController = StreamController<int>();
+class CategoryBloc extends Bloc<CategoryEvent, int> { // 2
+  @override
+  int get initialState => 0;
 
-  StreamSink<int> get _inCounter => _counterStateController.sink;
-  Stream<int> get counter => _counterStateController.stream;
-
-  final _counterEventController = StreamController<CategoryEvent>();
-
-  Sink<CategoryEvent> get counterEventSink => _counterEventController.sink;
-
-  CategoryBloc() {
-    // Whenever there is a new event, we want to map it to a new state
-    _counterEventController.stream.listen(_mapEventToState);
+  @override
+  Stream<int> mapEventToState(CategoryEvent event, int currentState) async* {
+    switch (event) {
+      case CategoryEvent.increment:
+        yield currentState + 1;
+        break;
+    }
   }
-
-  void _mapEventToState(CategoryEvent event) {
-    if (event is IncrementEvent)
-      _counter++;
-    else
-      _counter--;
-
-    _inCounter.add(_counter);
-  }
-
-  void dispose() {
-    _counterStateController.close();
-    _counterEventController.close();
-  }
-
-
 }

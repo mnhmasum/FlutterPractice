@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'CategoryBloc.dart';
 import 'category.dart';
@@ -12,18 +13,16 @@ final _backgroundColor = Colors.green[100];
 ///
 /// While it is named CategoryRoute, a more apt name would be CategoryScreen,
 /// because it is responsible for the UI at the route's destination.
-class CategoryRoute extends StatefulWidget {
-  const CategoryRoute();
+//class CategoryRoute extends StatefulWidget {
+//  const CategoryRoute();
+//
+//  @override
+//  State<StatefulWidget> createState() {
+//    return Home();
+//  }
+//}
 
-  @override
-  State<StatefulWidget> createState() {
-    return Home();
-  }
-}
-
-class Home extends State<CategoryRoute> {
-
-  final _bloc = CategoryBloc();
+class CategoryRoute extends StatelessWidget  {
 
   static const _categoryNames = <String>[
     'Length',
@@ -56,6 +55,8 @@ class Home extends State<CategoryRoute> {
 
   @override
   Widget build(BuildContext context) {
+    final CategoryBloc _counterBloc = BlocProvider.of<CategoryBloc>(context);
+
     final categories = <Category>[];
 
     for (var i = 0; i < _categoryNames.length; i++) {
@@ -87,33 +88,24 @@ class Home extends State<CategoryRoute> {
 
     return Scaffold(
       appBar: appBar,
-      body: Container(
-          child: StreamBuilder(
-              stream: _bloc.counter,
-              initialData: 0,
-              builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+      body: BlocBuilder(
+              bloc: _counterBloc,
+              builder: (BuildContext context, int snapshot) {
                 return Container(
                     child: Column(children: <Widget>[
                       Container(
                           padding: EdgeInsets.all(10),
                           width: double.infinity,
                           color: Colors.lightBlue,
-                          child: Text('You have: ${snapshot.data}', textAlign: TextAlign.left)),
+                          child: Text('You have: $snapshot', textAlign: TextAlign.left)),
                       Text('You have 2'),
                       new Expanded(child: listView)
                     ]));
               }
 
           )
-      )
 
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _bloc.dispose();
   }
 
 }

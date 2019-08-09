@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'CategoryBloc.dart';
 import 'CategoryRoute.dart';
 
 void main() => runApp(UnitConverterApp());
@@ -10,7 +12,37 @@ class UnitConverterApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Unit Converter',
-      home:   CategoryRoute()
+      home: BlocProvider<CategoryBloc>(  // 3
+        bloc:CategoryBloc(),
+        child: CategoryRoute()
+      ),
+    );
+  }
+}
+
+class MyHomePage5 extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    final CategoryBloc _counterBloc = BlocProvider.of<CategoryBloc>(context); // 4
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('BLoC'),
+      ),
+      body: BlocBuilder(  // 5
+          bloc: _counterBloc,
+          builder: (BuildContext context, int count) {
+            return Text(
+              '${count}',
+            );
+          }
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _counterBloc.dispatch(CategoryBloc.increment), // 6
+      ),
     );
   }
 }
