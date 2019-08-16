@@ -55,7 +55,6 @@ class CategoryRoute extends StatelessWidget  {
 
   @override
   Widget build(BuildContext context) {
-    final CategoryBloc _counterBloc = BlocProvider.of<CategoryBloc>(context);
 
     final categories = <Category>[];
 
@@ -88,16 +87,15 @@ class CategoryRoute extends StatelessWidget  {
 
     return Scaffold(
       appBar: appBar,
-      body: BlocBuilder(
-              bloc: _counterBloc,
-              builder: (BuildContext context, int snapshot) {
+      body: BlocBuilder<CategoryBloc, int>(
+              builder: (context, state) {
                 return Container(
                     child: Column(children: <Widget>[
                       Container(
                           padding: EdgeInsets.all(10),
                           width: double.infinity,
                           color: Colors.lightBlue,
-                          child: Text('You have: $snapshot', textAlign: TextAlign.left)),
+                          child: Text('You have: $state', textAlign: TextAlign.left)),
                       Text('You have 2'),
                       new Expanded(child: listView)
                     ]));

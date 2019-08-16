@@ -9,7 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
 import 'CategoryBloc.dart';
-//import 'CategoryEvent.dart';
+import 'CategoryRoute.dart';
+import 'TimeLine.dart';
+import 'main.dart';
 
 // We use an underscore to indicate that these variables are private.
 // See https://www.dartlang.org/guides/language/effective-dart/design#libraries
@@ -67,14 +69,15 @@ class CategoryItem extends State<Category> {
   // Theme ancestor in the tree. Below, we obtain the display1 text theme.
   // See https://docs.flutter.io/flutter/material/Theme-class.html
   Widget build(BuildContext context) {
+
+    //final CounterBloc counterBloc = BlocProvider.of<CounterBloc>(context);
     final CategoryBloc _counterBloc = BlocProvider.of<CategoryBloc>(context);
 
 
     return Material(
       color: Colors.transparent,
-      child: BlocBuilder(
-          bloc: _counterBloc,
-          builder: (BuildContext context, int snapshot) {
+      child: BlocBuilder<CategoryBloc, int>(
+          builder: ( context, snapshot) {
             return Container(
               height: _rowHeight,
               child: InkWell(
@@ -84,6 +87,13 @@ class CategoryItem extends State<Category> {
                 // We can use either the () => function() or the () { function(); }
                 // syntax.
                 onTap: () {
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TimeLine()),
+                  );
+
+                  _counterBloc.setMyVal(30);
                   _counterBloc.dispatch(CategoryEvent.increment);
                   print('I was tapped! $snapshot');
                 },
