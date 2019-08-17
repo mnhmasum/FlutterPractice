@@ -4,19 +4,15 @@
 // To keep your imports tidy, follow the ordering guidelines at
 // https://www.dartlang.org/guides/language/effective-dart/style#ordering
 import 'package:flutter/material.dart';
-// @required is defined in the meta.dart package
+import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
-
 import 'CategoryBloc.dart';
-import 'CategoryEvent.dart';
+import 'main.dart';
 
-// We use an underscore to indicate that these variables are private.
-// See https://www.dartlang.org/guides/language/effective-dart/design#libraries
 final _rowHeight = 100.0;
 final _borderRadius = BorderRadius.circular(_rowHeight / 2);
 
 /// A custom [Category] widget.
-///
 /// The widget is composed on an [Icon] and [Text]. Tapping on the widget shows
 /// a colored [InkWell] animation.
 
@@ -56,7 +52,7 @@ class CategoryItem extends State<Category> {
         assert(color != null),
         assert(iconLocation != null);
 
-  final _bloc = CategoryBloc();
+  //final _bloc = CategoryBloc();
 
   /// Builds a custom widget that shows [Category] information.
   ///
@@ -67,12 +63,16 @@ class CategoryItem extends State<Category> {
   // Theme ancestor in the tree. Below, we obtain the display1 text theme.
   // See https://docs.flutter.io/flutter/material/Theme-class.html
   Widget build(BuildContext context) {
+
+    //GetIt getIt = new GetIt();
+    final counterService = getIt<CategoryBloc>();
+
     return Material(
       color: Colors.transparent,
       child: StreamBuilder(
-          stream: _bloc.counter,
+          stream: counterService.stream$,
           initialData: 0,
-          builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
             return Container(
               height: _rowHeight,
               child: InkWell(
@@ -82,7 +82,7 @@ class CategoryItem extends State<Category> {
                 // We can use either the () => function() or the () { function(); }
                 // syntax.
                 onTap: () {
-                  _bloc.counterEventSink.add(IncrementEvent());
+                  counterService.increment();
                   print('I was tapped! ${snapshot.data}');
                 },
                 child: Padding(

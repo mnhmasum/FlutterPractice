@@ -1,8 +1,22 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
+import 'CategoryBloc.dart';
 import 'CategoryRoute.dart';
 
-void main() => runApp(UnitConverterApp());
+import 'package:get_it/get_it.dart';
+
+
+GetIt getIt = new GetIt();
+
+
+void main() {
+  getIt.registerSingleton<CategoryBloc>(CategoryBloc());
+  //getIt.registerSingleton<CategoryBloc>(new CategoryBloc());
+
+  runApp(UnitConverterApp());
+}
 
 class UnitConverterApp extends StatelessWidget {
   @override

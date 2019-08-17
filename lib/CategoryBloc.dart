@@ -1,36 +1,21 @@
 import 'dart:async';
 import 'CategoryEvent.dart';
 
-class CategoryBloc{
-  int _counter = 0;
+import 'package:rxdart/rxdart.dart';
 
-  final _counterStateController = StreamController<int>();
+// Global Variable
+//CategoryBloc counterService = CategoryBloc();
 
-  StreamSink<int> get _inCounter => _counterStateController.sink;
-  Stream<int> get counter => _counterStateController.stream;
+// Data Model
+class  CategoryBloc{
 
-  final _counterEventController = StreamController<CategoryEvent>();
+  BehaviorSubject _counter = new BehaviorSubject<int>.seeded(1);
 
-  Sink<CategoryEvent> get counterEventSink => _counterEventController.sink;
+  Observable get stream$ => _counter.stream;
+  int get current => _counter.value;
 
-  CategoryBloc() {
-    // Whenever there is a new event, we want to map it to a new state
-    _counterEventController.stream.listen(_mapEventToState);
+  increment() {
+    _counter.add(current + 1);
   }
-
-  void _mapEventToState(CategoryEvent event) {
-    if (event is IncrementEvent)
-      _counter++;
-    else
-      _counter--;
-
-    _inCounter.add(_counter);
-  }
-
-  void dispose() {
-    _counterStateController.close();
-    _counterEventController.close();
-  }
-
 
 }
