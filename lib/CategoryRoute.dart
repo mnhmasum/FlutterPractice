@@ -98,18 +98,18 @@ class Home extends State<CategoryRoute> {
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   return Container(
                       child: Column(children: <Widget>[
-                    Container(
-                        padding: EdgeInsets.all(10),
-                        width: double.infinity,
-                        color: Colors.lightBlue,
-                        child: Text('You have: ${snapshot.data}',
-                            textAlign: TextAlign.left)),
-                    Text('You have 2'),
-                    FlatButton(
-                      onPressed: ()=> _counterService.increment(),
-                      child: new Text("Tap Here"),
-                    ),
-                    new Expanded(child: listView)
+                          Container(
+                              padding: EdgeInsets.all(10),
+                              width: double.infinity,
+                              color: Colors.lightBlue,
+                              child: Text('You have: ${snapshot.data}',
+                                  textAlign: TextAlign.left)),
+                          Text('You have 2'),
+                          FlatButton(
+                            onPressed: () => _counterService.increment(),
+                            child: new Text("Tap Here"),
+                          ),
+                          new Expanded(child: listView)
                   ]));
                 })));
   }

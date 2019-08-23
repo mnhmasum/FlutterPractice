@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
 import 'CategoryBloc.dart';
+import 'home/Home.dart';
 import 'main.dart';
 
 final _rowHeight = 100.0;
@@ -83,6 +84,12 @@ class CategoryItem extends State<Category> {
                 // syntax.
                 onTap: () {
                   counterService.increment();
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Home()),
+                  );
+
                   print('I was tapped! ${snapshot.data}');
                 },
                 child: Padding(
