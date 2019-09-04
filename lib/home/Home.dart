@@ -6,7 +6,6 @@ import '../main.dart';
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     final _counterService = getIt<CategoryBloc>();
 
     final appBar = AppBar(
@@ -26,29 +25,25 @@ class Home extends StatelessWidget {
       appBar: appBar,
       body: Column(
         children: <Widget>[
-          Container(
-              color: Color(30),
-              child: Text('text')),
+          Container(color: Color(30), child: Text('text')),
           Container(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: StreamBuilder(
-                  stream: _counterService.stream$,
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    return RaisedButton(
-                      onPressed: () {
-                        _counterService.increment();
-                        Navigator.pop(context);
-                      },
-                      child: Text('Go back! ${snapshot.data}'),
-                    );
-                  }
-                ),
+                    stream: _counterService.stream$,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      return RaisedButton(
+                        onPressed: () {
+                          _counterService.increment();
+                          Navigator.pop(context);
+                        },
+                        child: Text('Go back! ${snapshot.data}'),
+                      );
+                    }),
               ),
             ),
           ),
-
         ],
       ),
     );

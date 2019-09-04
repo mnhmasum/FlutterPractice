@@ -7,8 +7,7 @@ import 'package:rxdart/rxdart.dart';
 //CategoryBloc counterService = CategoryBloc();
 
 // Data Model
-class  CategoryBloc{
-
+class CategoryBloc {
   BehaviorSubject _counter = new BehaviorSubject<int>.seeded(1);
 
   Observable get stream$ => _counter.stream;
@@ -17,5 +16,4 @@ class  CategoryBloc{
   increment() {
     _counter.add(current + 1);
   }
-
 }

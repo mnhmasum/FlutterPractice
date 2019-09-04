@@ -24,11 +24,10 @@ class Category extends StatefulWidget {
 
   const Category({
     Key key,
-    @required
-    @required this.name,
+    @required @required this.name,
     @required this.color,
     @required this.iconLocation,
-  }) : assert(name != null),
+  })  : assert(name != null),
         assert(color != null),
         assert(iconLocation != null),
         super(key: key);
@@ -64,66 +63,61 @@ class CategoryItem extends State<Category> {
   // Theme ancestor in the tree. Below, we obtain the display1 text theme.
   // See https://docs.flutter.io/flutter/material/Theme-class.html
   Widget build(BuildContext context) {
-
     //GetIt getIt = new GetIt();
     final counterService = getIt<CategoryBloc>();
 
     return Material(
-      color: Colors.transparent,
-      child: StreamBuilder(
-          stream: counterService.stream$,
-          initialData: 0,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            return Container(
-              height: _rowHeight,
-              child: InkWell(
-                borderRadius: _borderRadius,
-                highlightColor: color,
-                splashColor: color,
-                // We can use either the () => function() or the () { function(); }
-                // syntax.
-                onTap: () {
-                  counterService.increment();
+        color: Colors.transparent,
+        child: StreamBuilder(
+            stream: counterService.stream$,
+            initialData: 0,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              return Container(
+                height: _rowHeight,
+                child: InkWell(
+                  borderRadius: _borderRadius,
+                  highlightColor: color,
+                  splashColor: color,
+                  // We can use either the () => function() or the () { function(); }
+                  // syntax.
+                  onTap: () {
+                    counterService.increment();
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Home()),
-                  );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
 
-                  print('I was tapped! ${snapshot.data}');
-                },
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    // There are two ways to denote a list: `[]` and `List()`.
-                    // Prefer to use the literal syntax, i.e. `[]`, instead of `List()`.
-                    // You can add the type argument if you'd like, i.e. <Widget>[].
-                    // See https://www.dartlang.org/guides/language/effective-dart/usage#do-use-collection-literals-when-possible
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: Icon(
-                          iconLocation,
-                          size: 60.0,
+                    print('I was tapped! ${snapshot.data}');
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      // There are two ways to denote a list: `[]` and `List()`.
+                      // Prefer to use the literal syntax, i.e. `[]`, instead of `List()`.
+                      // You can add the type argument if you'd like, i.e. <Widget>[].
+                      // See https://www.dartlang.org/guides/language/effective-dart/usage#do-use-collection-literals-when-possible
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Icon(
+                            iconLocation,
+                            size: 60.0,
+                          ),
                         ),
-                      ),
-                      Center(
-                        child: Text(
-                          name,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headline,
+                        Center(
+                          child: Text(
+                            name,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.headline,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          }
-
-      )
-
-    );
+              );
+            }));
   }
 }

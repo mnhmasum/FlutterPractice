@@ -16,9 +16,8 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Unit Converter',
-      home:   CategoryRoute()
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Unit Converter',
+        home: CategoryRoute());
   }
 }
