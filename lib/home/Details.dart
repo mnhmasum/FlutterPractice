@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../CategoryBloc.dart';
 import '../main.dart';
 
-class Home extends StatelessWidget {
+class Details extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _counterService = getIt<CategoryBloc>();

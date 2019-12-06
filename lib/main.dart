@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'CategoryBloc.dart';
-import 'CategoryRoute.dart';
+import 'CategoryScreen.dart';
 
 import 'package:get_it/get_it.dart';
 
@@ -18,6 +18,6 @@ class Dashboard extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Unit Converter',
-        home: CategoryRoute());
+        home: CategoryScreen());
   }
 }

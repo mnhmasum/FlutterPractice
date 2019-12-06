@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
 import 'CategoryBloc.dart';
-import 'home/Home.dart';
+import 'home/Details.dart';
 import 'main.dart';
 
 final _rowHeight = 100.0;
-final _borderRadius = BorderRadius.circular(_rowHeight / 2);
+final _borderRadius = BorderRadius.circular(_rowHeight / 4);
 
 /// A custom [Category] widget.
 /// The widget is composed on an [Icon] and [Text]. Tapping on the widget shows
@@ -33,7 +33,7 @@ class Category extends StatefulWidget {
         super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
+  CategoryItem createState() {
     return CategoryItem(name: name, color: color, iconLocation: iconLocation);
   }
 }
@@ -85,7 +85,7 @@ class CategoryItem extends State<Category> {
 
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Home()),
+                      MaterialPageRoute(builder: (context) => Details()),
                     );
 
                     print('I was tapped! ${snapshot.data}');
