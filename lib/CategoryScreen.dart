@@ -1,10 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/Category.dart' as prefix0;
 
 import 'CategoryBloc.dart';
-import 'category.dart';
 import 'main.dart';
 import 'home/Details.dart';
 
@@ -75,7 +73,6 @@ class Home extends State<CategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //GetIt getIt = new GetIt();
     final _counterService = getIt<CategoryBloc>();
 
     /* final listView = Container(
@@ -87,7 +84,7 @@ class Home extends State<CategoryScreen> {
     final appBar = AppBar(
       elevation: 0.0,
       title: Text(
-        'Unit Converter',
+        'Bangla Dictionary',
         style: TextStyle(
           color: Colors.black,
           fontSize: 30.0,

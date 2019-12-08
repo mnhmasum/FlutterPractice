@@ -3,7 +3,7 @@ import 'CategoryEvent.dart';
 
 import 'package:rxdart/rxdart.dart';
 
-// Global Variable
+//Global Variable
 //CategoryBloc counterService = CategoryBloc();
 
 // Data Model

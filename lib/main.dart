@@ -8,7 +8,6 @@ GetIt getIt = new GetIt();
 
 void main() {
   getIt.registerSingleton<CategoryBloc>(CategoryBloc());
-  //getIt.registerSingleton<CategoryBloc>(new CategoryBloc());
   runApp(Dashboard());
 }
 
