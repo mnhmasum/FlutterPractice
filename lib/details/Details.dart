@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import '../CategoryBloc.dart';
+import '../home/HomeBloc.dart';
+import '../details/DetailsBloc.dart';
 import '../main.dart';
 
 class Details extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     final _counterService = getIt<CategoryBloc>();
+    final _apiCallService = getIt<DetailsBloc>();
+
+    _apiCallService.getInfo();
 
     final appBar = AppBar(
       elevation: 0.0,
@@ -43,6 +48,21 @@ class Details extends StatelessWidget {
               ),
             ),
           ),
+          Container(
+            child: Center(
+              child: Text("Messege"),
+            ),
+          ),
+          Container(
+            child: StreamBuilder(
+              stream: _apiCallService.streamTextChange$,
+              builder: (context, snapshot) {
+                return Center(
+                  child: Text("Sub message ${snapshot.data}"),
+                );
+              }
+            ),
+          )
         ],
       ),
     );

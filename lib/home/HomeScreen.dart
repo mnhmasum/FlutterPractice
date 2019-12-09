@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-import 'CategoryBloc.dart';
-import 'main.dart';
-import 'home/Details.dart';
+import 'HomeBloc.dart';
+import '../main.dart';
+import '../details/Details.dart';
 
 final _backgroundColor = Colors.green[100];
 
@@ -125,10 +125,6 @@ class Home extends State<CategoryScreen> {
                             });
 
                             setState(() {
-                              finalList.forEach((finalItem) {
-                                log("==> " + finalItem);
-                              });
-
                               categories.clear();
                               categories.addAll(finalList);
                             });

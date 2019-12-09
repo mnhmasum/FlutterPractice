@@ -1,10 +1,5 @@
-import 'dart:async';
-import 'CategoryEvent.dart';
 
 import 'package:rxdart/rxdart.dart';
-
-//Global Variable
-//CategoryBloc counterService = CategoryBloc();
 
 // Data Model
 class CategoryBloc {

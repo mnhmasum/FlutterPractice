@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'CategoryBloc.dart';
-import 'CategoryScreen.dart';
+import 'package:flutter_app/details/DetailsBloc.dart';
+import 'home/HomeBloc.dart';
+import 'home/HomeScreen.dart';
 
 import 'package:get_it/get_it.dart';
 
@@ -8,6 +9,7 @@ GetIt getIt = new GetIt();
 
 void main() {
   getIt.registerSingleton<CategoryBloc>(CategoryBloc());
+  getIt.registerSingleton<DetailsBloc>(DetailsBloc());
   runApp(Dashboard());
 }
 

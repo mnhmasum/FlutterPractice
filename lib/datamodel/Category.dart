@@ -5,9 +5,9 @@
 // https://www.dartlang.org/guides/language/effective-dart/style#ordering
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'CategoryBloc.dart';
-import 'home/Details.dart';
-import 'main.dart';
+import '../home/HomeBloc.dart';
+import '../details/Details.dart';
+import '../main.dart';
 
 final _rowHeight = 100.0;
 final _borderRadius = BorderRadius.circular(_rowHeight / 4);
