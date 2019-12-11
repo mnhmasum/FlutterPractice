@@ -57,17 +57,18 @@ class Home extends State<CategoryScreen> {
   Home() {
     log("First Time Called===>");
     //for (var i = 0; i < _categoryNames.length; i++) {
-    duplicatedItems.add("apple");
-    duplicatedItems.add("banana");
-    duplicatedItems.add("papa");
-    duplicatedItems.add("guava");
-    duplicatedItems.add("mango");
+    duplicatedItems.add("US");
+    duplicatedItems.add("GB");
+    duplicatedItems.add("CN");
+    duplicatedItems.add("IN");
+    duplicatedItems.add("AU");
     //}
   }
 
   @override
   void initState() {
     categories.addAll(duplicatedItems);
+    print('Loading... UI !');
     super.initState();
   }
 
@@ -84,7 +85,7 @@ class Home extends State<CategoryScreen> {
     final appBar = AppBar(
       elevation: 0.0,
       title: Text(
-        'Bangla Dictionary',
+        'Latest News',
         style: TextStyle(
           color: Colors.black,
           fontSize: 30.0,
@@ -106,9 +107,20 @@ class Home extends State<CategoryScreen> {
                     Container(
                         padding: EdgeInsets.all(10),
                         width: double.infinity,
-                        color: Colors.lightBlue,
+                        color: Colors.white70,
                         child: Text('You have: ${snapshot.data}',
                             textAlign: TextAlign.left)),
+                    FlatButton(
+                      onPressed: () {
+                        _counterService.increment();
+                        myController.text = "Try now";
+                        //categories.removeAt(0);
+                        setState(() {
+                          //_text = text;
+                        });
+                      },
+                      child: new Text("Tap Here $_text"),
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: TextField(
@@ -146,17 +158,6 @@ class Home extends State<CategoryScreen> {
                             InputDecoration(hintText: 'Enter a search term'),
                       ),
                     ),
-                    FlatButton(
-                      onPressed: () {
-                        _counterService.increment();
-                        myController.text = "Try now";
-                        //categories.removeAt(0);
-                        setState(() {
-                          //_text = text;
-                        });
-                      },
-                      child: new Text("Tap Here $_text"),
-                    ),
                     Expanded(
                         child: ListView.builder(
                             shrinkWrap: true,
@@ -167,7 +168,7 @@ class Home extends State<CategoryScreen> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Details()),
+                                        builder: (context) => Details(categories[index])),
                                   );
 
                                   print('I was tapped! ${snapshot.data}');

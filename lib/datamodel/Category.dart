@@ -84,7 +84,7 @@ class CategoryItem extends State<Category> {
 
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Details()),
+                      MaterialPageRoute(builder: (context) => Details("")),
                     );
 
                     print('I was tapped! ${snapshot.data}');

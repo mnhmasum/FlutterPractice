@@ -4,20 +4,25 @@ import '../details/DetailsBloc.dart';
 import '../main.dart';
 
 class Details extends StatelessWidget {
+  String queryText = '';
+  final String message;
+
+  Details(this.message);
 
   @override
   Widget build(BuildContext context) {
     final _counterService = getIt<CategoryBloc>();
     final _apiCallService = getIt<DetailsBloc>();
 
-    _apiCallService.getInfo();
+    print("Details Called===>" + message);
+    _apiCallService.getInfo(message.toLowerCase());
 
     final appBar = AppBar(
       elevation: 0.0,
       title: Text(
         'Wall',
         style: TextStyle(
-          color: Colors.white,
+          color: Colors.black,
           fontSize: 30.0,
         ),
       ),
@@ -49,8 +54,11 @@ class Details extends StatelessWidget {
             ),
           ),
           Container(
-            child: Center(
-              child: Text("Messege"),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Text(message),
+              ),
             ),
           ),
           Container(
@@ -58,7 +66,10 @@ class Details extends StatelessWidget {
               stream: _apiCallService.streamTextChange$,
               builder: (context, snapshot) {
                 return Center(
-                  child: Text("Sub message ${snapshot.data}"),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(":::: ${snapshot.data} ::::"),
+                  ),
                 );
               }
             ),
