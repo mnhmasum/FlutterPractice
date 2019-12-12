@@ -4,17 +4,10 @@ import 'package:flutter/material.dart';
 
 import 'HomeBloc.dart';
 import '../main.dart';
-import '../details/Details.dart';
+import '../news/NewsList.dart';
 
 final _backgroundColor = Colors.green[100];
 
-/// Category Route (screen).
-///
-/// This is the 'home' screen of the Unit Converter. It shows a header and
-/// a list of [Categories].
-///
-/// While it is named CategoryRoute, a more apt name would be CategoryScreen,
-/// because it is responsible for the UI at the route's destination.
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen();
 
@@ -27,9 +20,8 @@ class CategoryScreen extends StatefulWidget {
 class Home extends State<CategoryScreen> {
   //final _bloc = CategoryBloc();
 
-  final myController = TextEditingController();
 
-  String _text = "";
+  /* String _text = "";
 
   static const _baseColors = <Color>[
     Colors.teal,
@@ -40,7 +32,7 @@ class Home extends State<CategoryScreen> {
     Colors.greenAccent,
     Colors.purpleAccent,
     Colors.red,
-  ];
+  ];*/
 
 //  Widget _buildCategoryWidgets(List<String> categories) {
 //    return ListView.builder(
@@ -50,24 +42,21 @@ class Home extends State<CategoryScreen> {
 //    );
 //  }
 
-  //final duplicateItems = List<String>.generate(10000, (i) => "Item $i");
-  List<String> categories = List<String>();
+  final myController = TextEditingController();
+  List<String> countryCodeList = List<String>();
   final List<String> duplicatedItems = List<String>();
 
   Home() {
-    log("First Time Called===>");
-    //for (var i = 0; i < _categoryNames.length; i++) {
     duplicatedItems.add("US");
     duplicatedItems.add("GB");
     duplicatedItems.add("CN");
     duplicatedItems.add("IN");
     duplicatedItems.add("AU");
-    //}
   }
 
   @override
   void initState() {
-    categories.addAll(duplicatedItems);
+    countryCodeList.addAll(duplicatedItems);
     print('Loading... UI !');
     super.initState();
   }
@@ -75,12 +64,6 @@ class Home extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     final _counterService = getIt<CategoryBloc>();
-
-    /* final listView = Container(
-      color: _backgroundColor,
-      padding: EdgeInsets.symmetric(horizontal: 3.0),
-      child: _buildCategoryWidgets(categories),
-    );*/
 
     final appBar = AppBar(
       elevation: 0.0,
@@ -104,23 +87,16 @@ class Home extends State<CategoryScreen> {
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   return Container(
                       child: Column(children: <Widget>[
-                    Container(
-                        padding: EdgeInsets.all(10),
-                        width: double.infinity,
-                        color: Colors.white70,
-                        child: Text('You have: ${snapshot.data}',
-                            textAlign: TextAlign.left)),
-                    FlatButton(
+                    /*      FlatButton(
                       onPressed: () {
                         _counterService.increment();
-                        myController.text = "Try now";
-                        //categories.removeAt(0);
                         setState(() {
                           //_text = text;
                         });
+                        //myController.text = "Try now";
                       },
-                      child: new Text("Tap Here $_text"),
-                    ),
+                      //child: new Text("Tap Here $_text"),
+                    ),*/
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: TextField(
@@ -137,15 +113,15 @@ class Home extends State<CategoryScreen> {
                             });
 
                             setState(() {
-                              categories.clear();
-                              categories.addAll(finalList);
+                              countryCodeList.clear();
+                              countryCodeList.addAll(finalList);
                             });
 
                             return;
                           } else {
                             setState(() {
-                              categories.clear();
-                              categories.addAll(duplicatedItems);
+                              countryCodeList.clear();
+                              countryCodeList.addAll(duplicatedItems);
                             });
                           }
 
@@ -161,19 +137,20 @@ class Home extends State<CategoryScreen> {
                     Expanded(
                         child: ListView.builder(
                             shrinkWrap: true,
-                            itemCount: categories.length,
+                            itemCount: countryCodeList.length,
                             itemBuilder: (context, index) {
                               return ListTile(
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Details(categories[index])),
+                                        builder: (context) =>
+                                            NewsList(countryCodeList[index])),
                                   );
 
                                   print('I was tapped! ${snapshot.data}');
                                 },
-                                title: Text('${categories[index]}'),
+                                title: Text('${countryCodeList[index]}'),
                               );
                             }))
                   ]));

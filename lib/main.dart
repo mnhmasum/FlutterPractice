@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/details/DetailsBloc.dart';
+import 'package:flutter_app/news/NewsBloc.dart';
 import 'home/HomeBloc.dart';
 import 'home/HomeScreen.dart';
 
@@ -9,7 +9,7 @@ GetIt getIt = new GetIt();
 
 void main() {
   getIt.registerSingleton<CategoryBloc>(CategoryBloc());
-  getIt.registerSingleton<DetailsBloc>(DetailsBloc());
+  getIt.registerSingleton<NewsBloc>(NewsBloc());
   runApp(Dashboard());
 }
 
