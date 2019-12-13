@@ -1,3 +1,5 @@
+import 'dart:collection';
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'HomeBloc.dart';
 import '../main.dart';
 import '../news/NewsList.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 final _backgroundColor = Colors.green[100];
 
@@ -19,7 +22,6 @@ class CategoryScreen extends StatefulWidget {
 
 class Home extends State<CategoryScreen> {
   //final _bloc = CategoryBloc();
-
 
   /* String _text = "";
 
@@ -46,12 +48,25 @@ class Home extends State<CategoryScreen> {
   List<String> countryCodeList = List<String>();
   final List<String> duplicatedItems = List<String>();
 
+  LinkedHashMap countryCodes = new LinkedHashMap<String, String>();
   Home() {
-    duplicatedItems.add("US");
-    duplicatedItems.add("GB");
+    countryCodes.putIfAbsent("US", () => "AMERICA");
+    countryCodes.putIfAbsent("GB", () => "GREAT BRITAIN");
+    countryCodes.putIfAbsent("CN", () => "CHINA");
+    countryCodes.putIfAbsent("IN", () => "INDIA");
+    countryCodes.putIfAbsent("AU", () => "AUSTRALIA");
+
+    countryCodes.forEach((k,v) => duplicatedItems.add(v));
+
+ /*   duplicatedItems.add("GB");
     duplicatedItems.add("CN");
     duplicatedItems.add("IN");
-    duplicatedItems.add("AU");
+    duplicatedItems.add("AU");*/
+  }
+
+  parseJsonFromAssets(String assetsPath) async {
+    print('--- Parse json from: $assetsPath');
+    rootBundle.loadString(assetsPath).then((jsonStr) => print("==>" + jsonStr));
   }
 
   @override
@@ -64,6 +79,7 @@ class Home extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     final _counterService = getIt<CategoryBloc>();
+
 
     final appBar = AppBar(
       elevation: 0.0,
@@ -106,7 +122,7 @@ class Home extends State<CategoryScreen> {
                           if (text.isNotEmpty) {
                             List<String> finalList = List<String>();
                             dummySearchList.forEach((item) {
-                              if (item.contains(text)) {
+                              if (item.toUpperCase().contains(text)) {
                                 log(item);
                                 finalList.add(item);
                               }
@@ -141,12 +157,20 @@ class Home extends State<CategoryScreen> {
                             itemBuilder: (context, index) {
                               return ListTile(
                                 onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            NewsList(countryCodeList[index])),
-                                  );
+
+                                  countryCodes.forEach((k,v) {
+                                    if(countryCodeList[index].toString().contains(v)) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                NewsList(k.toString().toLowerCase())),
+                                      );
+                                    }
+                                  });
+
+
+
 
                                   print('I was tapped! ${snapshot.data}');
                                 },

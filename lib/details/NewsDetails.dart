@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/datamodel/News.dart';
 
+// ignore: must_be_immutable
 class NewsDetails extends StatelessWidget {
   String queryText = '';
   Articles articles = new Articles();
@@ -29,6 +31,14 @@ class NewsDetails extends StatelessWidget {
       appBar: appBar,
       body: Column(
         children: <Widget>[
+          Container(
+            child: CachedNetworkImage(
+              imageUrl: '${articles.urlToImage}',
+              placeholder: (context, url) => Container(
+                  width: 30, height: 30, child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(

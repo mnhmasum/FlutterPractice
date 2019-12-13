@@ -1,7 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/datamodel/News.dart';
 import 'package:flutter_app/details/NewsDetails.dart';
-import '../home/HomeBloc.dart';
 import '../news/NewsBloc.dart';
 import '../main.dart';
 
@@ -14,11 +14,9 @@ class NewsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _counterService = getIt<CategoryBloc>();
     final _apiCallService = getIt<NewsBloc>();
-
-    print("Details Called===>" + message);
     _apiCallService.getInfo(message.toLowerCase());
+    print("Details Called===>" + message);
 
     final appBar = AppBar(
       elevation: 0.0,
@@ -89,16 +87,46 @@ class NewsList extends StatelessWidget {
                                   children: <Widget>[
                                     Container(
                                       height: 80,
-                                      child: Center(
-                                        child: Text(
-                                            ' ${(snapshot.data[index] as Articles).title}'),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Container(
+                                            width: 100,
+                                            height: 100,
+                                            child: CachedNetworkImage(
+                                              imageUrl:
+                                                  '${(snapshot.data[index] as Articles).urlToImage}',
+                                              placeholder: (context, url) =>
+                                                  Container(
+                                                      width: 30,
+                                                      height: 30,
+                                                      child:Icon(Icons.autorenew))
+                                                          ,
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Icon(Icons.error),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      8.0, 0, 0, 0),
+                                              child: Container(
+                                                child: Text(
+                                                    ' ${(snapshot.data[index] as Articles).title}'),
+                                              ),
+                                            ),
+                                          )
+                                        ],
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 10, 0, 0),
                                       child: Container(
                                         height: 1.0,
-                                        decoration: new BoxDecoration(color: Colors.black),
+                                        decoration: new BoxDecoration(
+                                            color: Colors.black),
                                       ),
                                     )
                                   ],
