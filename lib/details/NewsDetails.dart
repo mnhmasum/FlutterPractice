@@ -29,39 +29,37 @@ class NewsDetails extends StatelessWidget {
 
     final screen = Scaffold(
       appBar: appBar,
-      body: widget(
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: CachedNetworkImage(
-                imageUrl: '${articles.urlToImage}',
-                placeholder: (context, url) => Container(
-                    width: 30, height: 30, child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-              ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            child: CachedNetworkImage(
+              imageUrl: '${articles.urlToImage}',
+              placeholder: (context, url) => Container(
+                  width: 30, height: 30, child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
-            Padding(
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+                color: Color(30),
+                child: Text(
+                  articles.title,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                )),
+          ),
+          Container(
+            child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  color: Color(30),
-                  child: Text(
-                    articles.title,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                  )),
-            ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Text(
-                    articles.content,
-                    style: TextStyle(fontSize: 16),
-                  ),
+              child: Center(
+                child: Text(
+                  articles.content,
+                  style: TextStyle(fontSize: 16),
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
 
