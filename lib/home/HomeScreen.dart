@@ -122,7 +122,7 @@ class Home extends State<CategoryScreen> {
                           if (text.isNotEmpty) {
                             List<String> finalList = List<String>();
                             dummySearchList.forEach((item) {
-                              if (item.toUpperCase().contains(text)) {
+                              if (item.toUpperCase().contains(text.toUpperCase())) {
                                 log(item);
                                 finalList.add(item);
                               }
@@ -168,9 +168,6 @@ class Home extends State<CategoryScreen> {
                                       );
                                     }
                                   });
-
-
-
 
                                   print('I was tapped! ${snapshot.data}');
                                 },
