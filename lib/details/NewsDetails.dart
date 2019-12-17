@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/datamodel/News.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // ignore: must_be_immutable
 class NewsDetails extends StatelessWidget {
@@ -8,6 +9,14 @@ class NewsDetails extends StatelessWidget {
   Articles articles = new Articles();
 
   NewsDetails(this.articles);
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +56,24 @@ class NewsDetails extends StatelessWidget {
                   articles.title,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                 )),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              child: Row(
+                children: <Widget>[
+                  Expanded(child: Text(articles.publishedAt)),
+                  Center(
+                    child: RaisedButton(
+                      child: Text("Visit Website"),
+                      onPressed: () {
+                        _launchURL(articles.url);
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
           Container(
             child: Padding(
