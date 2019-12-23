@@ -50,7 +50,7 @@ class Home extends State<CategoryScreen> {
 
   LinkedHashMap countryCodes = new LinkedHashMap<String, String>();
   Home() {
-    countryCodes.putIfAbsent("US", () => "AMERICA");
+    countryCodes.putIfAbsent("US", () => "UNITED STATES OF AMERICA");
     countryCodes.putIfAbsent("GB", () => "GREAT BRITAIN");
     countryCodes.putIfAbsent("CN", () => "CHINA");
     countryCodes.putIfAbsent("IN", () => "INDIA");
@@ -147,7 +147,7 @@ class Home extends State<CategoryScreen> {
                         },
                         controller: myController,
                         decoration:
-                            InputDecoration(hintText: 'Enter a search term'),
+                            InputDecoration(hintText: 'Search by country name'),
                       ),
                     ),
                     Expanded(

@@ -44,7 +44,7 @@ class NewsList extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(countryName,
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               ),
             ),
           ),
@@ -52,15 +52,9 @@ class NewsList extends StatelessWidget {
             child: StreamBuilder(
                 stream: _apiCallService.streamTextChange$,
                 builder: (context, snapshot) {
-                  return Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Headlines",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
-                    ),
+                  return Container(
+                    height: 4.0,
+                    decoration: new BoxDecoration(color: Colors.white70),
                   );
                 }),
           ),
