@@ -8,9 +8,10 @@ import '../main.dart';
 class NewsList extends StatelessWidget {
   String queryText = '';
   final String message;
+  final String countryName;
   List<Articles> articles = new List<Articles>();
 
-  NewsList(this.message);
+  NewsList(this.message, this.countryName);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,8 @@ class NewsList extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(
-                child: Text(message),
+                child: Text(countryName,
+                    style: TextStyle(fontWeight: FontWeight.bold)),
               ),
             ),
           ),
@@ -99,8 +101,8 @@ class NewsList extends StatelessWidget {
                                                   Container(
                                                       width: 30,
                                                       height: 30,
-                                                      child:Icon(Icons.autorenew))
-                                                          ,
+                                                      child: Icon(
+                                                          Icons.autorenew)),
                                               errorWidget:
                                                   (context, url, error) =>
                                                       Icon(Icons.error),

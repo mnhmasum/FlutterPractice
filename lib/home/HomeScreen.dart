@@ -164,7 +164,7 @@ class Home extends State<CategoryScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                NewsList(k.toString().toLowerCase())),
+                                                NewsList(k.toString().toLowerCase(), v.toString())),
                                       );
                                     }
                                   });
