@@ -49,7 +49,7 @@ class NewsDetails extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16.0),
             child: Container(
                 color: Color(30),
                 child: Text(
@@ -58,14 +58,14 @@ class NewsDetails extends StatelessWidget {
                 )),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 0),
             child: Container(
               child: Row(
                 children: <Widget>[
                   Expanded(child: Text(articles.publishedAt)),
                   Center(
                     child: RaisedButton(
-                      child: Text("Visit Website"),
+                      child: Icon(Icons.visibility),
                       onPressed: () {
                         _launchURL(articles.url);
                       },
@@ -77,7 +77,7 @@ class NewsDetails extends StatelessWidget {
           ),
           Container(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(16.0),
               child: Center(
                 child: Text(
                   articles.content,

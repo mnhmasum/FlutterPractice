@@ -1,5 +1,4 @@
 import 'dart:collection';
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -22,12 +21,12 @@ class HomeScreen extends StatefulWidget {
 
 class Home extends State<HomeScreen> {
   final myController = TextEditingController();
-  List<String> countryCodeList = List<String>();
   final List<String> duplicatedItems = List<String>();
   LinkedHashMap countryCodes = new LinkedHashMap<String, String>();
+  List<String> countryCodeList = List<String>();
 
   Home() {
-    countryCodes.putIfAbsent("US", () => "UNITED STATES OF AMERICA");
+    countryCodes.putIfAbsent("US", () => "UNITED STATES");
     countryCodes.putIfAbsent("GB", () => "GREAT BRITAIN");
     countryCodes.putIfAbsent("CN", () => "CHINA");
     countryCodes.putIfAbsent("IN", () => "INDIA");
@@ -129,7 +128,6 @@ class Home extends State<HomeScreen> {
                                       );
                                     }
                                   });
-
                                 },
                                 title: Text('${countryCodeList[index]}'),
                               );

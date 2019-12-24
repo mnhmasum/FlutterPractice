@@ -6,14 +6,14 @@ import 'package:http/http.dart' as http;
 // Data Model
 class NewsBloc {
   BehaviorSubject _textChanger = new BehaviorSubject<String>.seeded("Loading data....");
-  BehaviorSubject newsData = new BehaviorSubject<List<Articles>>.seeded(null);
+  PublishSubject newsData = new PublishSubject<List<Articles>>();
 
   Observable get streamTextChange$ => _textChanger.stream;
   Observable get streamNews$ => newsData.stream;
 
   String get currentText => _textChanger.value;
 
-  List<Articles> get currentArticles => newsData.value;
+  //List<Articles> get currentArticles => newsData.value;
 
   callAPI(String text) async {
     // This example uses the Google Books API to search for books about http.
@@ -29,6 +29,7 @@ class NewsBloc {
 
     var response = await http.get(url, headers: headers);
     if (response.statusCode == 200) {
+      print("Response: $response.");
       var jsonResponse = convert.jsonDecode(response.body);
       News news = News.fromJson(jsonResponse);
 
@@ -46,5 +47,9 @@ class NewsBloc {
     _textChanger.add('Loading....');
     newsData.add(null);
     callAPI(text);
+  }
+
+  dispose() {
+    newsData.close();
   }
 }
