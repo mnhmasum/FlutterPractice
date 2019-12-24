@@ -11,8 +11,8 @@ import 'package:flutter/services.dart' show rootBundle;
 
 final _backgroundColor = Colors.green[100];
 
-class CategoryScreen extends StatefulWidget {
-  const CategoryScreen();
+class HomeScreen extends StatefulWidget {
+  const HomeScreen();
 
   @override
   Home createState() {
@@ -20,35 +20,12 @@ class CategoryScreen extends StatefulWidget {
   }
 }
 
-class Home extends State<CategoryScreen> {
-  //final _bloc = CategoryBloc();
-
-  /* String _text = "";
-
-  static const _baseColors = <Color>[
-    Colors.teal,
-    Colors.orange,
-    Colors.pinkAccent,
-    Colors.blueAccent,
-    Colors.yellow,
-    Colors.greenAccent,
-    Colors.purpleAccent,
-    Colors.red,
-  ];*/
-
-//  Widget _buildCategoryWidgets(List<String> categories) {
-//    return ListView.builder(
-//      shrinkWrap: true,
-//      itemBuilder: (BuildContext context, int index) => categories[index],
-//      itemCount: categories.length,
-//    );
-//  }
-
+class Home extends State<HomeScreen> {
   final myController = TextEditingController();
   List<String> countryCodeList = List<String>();
   final List<String> duplicatedItems = List<String>();
-
   LinkedHashMap countryCodes = new LinkedHashMap<String, String>();
+
   Home() {
     countryCodes.putIfAbsent("US", () => "UNITED STATES OF AMERICA");
     countryCodes.putIfAbsent("GB", () => "GREAT BRITAIN");
@@ -56,12 +33,7 @@ class Home extends State<CategoryScreen> {
     countryCodes.putIfAbsent("IN", () => "INDIA");
     countryCodes.putIfAbsent("AU", () => "AUSTRALIA");
 
-    countryCodes.forEach((k,v) => duplicatedItems.add(v));
-
- /*   duplicatedItems.add("GB");
-    duplicatedItems.add("CN");
-    duplicatedItems.add("IN");
-    duplicatedItems.add("AU");*/
+    countryCodes.forEach((k, v) => duplicatedItems.add(v));
   }
 
   parseJsonFromAssets(String assetsPath) async {
@@ -79,7 +51,6 @@ class Home extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     final _counterService = getIt<CategoryBloc>();
-
 
     final appBar = AppBar(
       elevation: 0.0,
@@ -103,16 +74,6 @@ class Home extends State<CategoryScreen> {
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   return Container(
                       child: Column(children: <Widget>[
-                    /*      FlatButton(
-                      onPressed: () {
-                        _counterService.increment();
-                        setState(() {
-                          //_text = text;
-                        });
-                        //myController.text = "Try now";
-                      },
-                      //child: new Text("Tap Here $_text"),
-                    ),*/
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: TextField(
@@ -122,7 +83,9 @@ class Home extends State<CategoryScreen> {
                           if (text.isNotEmpty) {
                             List<String> finalList = List<String>();
                             dummySearchList.forEach((item) {
-                              if (item.toUpperCase().contains(text.toUpperCase())) {
+                              if (item
+                                  .toUpperCase()
+                                  .contains(text.toUpperCase())) {
                                 log(item);
                                 finalList.add(item);
                               }
@@ -140,10 +103,6 @@ class Home extends State<CategoryScreen> {
                               countryCodeList.addAll(duplicatedItems);
                             });
                           }
-
-//                          setState(() {
-//                            _text = text;
-//                          });
                         },
                         controller: myController,
                         decoration:
@@ -157,19 +116,20 @@ class Home extends State<CategoryScreen> {
                             itemBuilder: (context, index) {
                               return ListTile(
                                 onTap: () {
-
-                                  countryCodes.forEach((k,v) {
-                                    if(countryCodeList[index].toString().contains(v)) {
+                                  countryCodes.forEach((k, v) {
+                                    if (countryCodeList[index]
+                                        .toString()
+                                        .contains(v)) {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                NewsList(k.toString().toLowerCase(), v.toString())),
+                                            builder: (context) => NewsList(
+                                                k.toString().toLowerCase(),
+                                                v.toString())),
                                       );
                                     }
                                   });
 
-                                  print('I was tapped! ${snapshot.data}');
                                 },
                                 title: Text('${countryCodeList[index]}'),
                               );

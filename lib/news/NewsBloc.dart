@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_app/datamodel/News.dart';
 import 'package:rxdart/rxdart.dart';
 import 'dart:convert' as convert;

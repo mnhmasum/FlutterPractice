@@ -18,7 +18,7 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Bangla Dictionary',
-        home: CategoryScreen());
+        title: 'Latest News',
+        home: HomeScreen());
   }
 }

@@ -17,7 +17,6 @@ class NewsList extends StatelessWidget {
   Widget build(BuildContext context) {
     final _apiCallService = getIt<NewsBloc>();
     _apiCallService.getInfo(message.toLowerCase());
-    print("Details Called===>" + message);
 
     final appBar = AppBar(
       elevation: 0.0,
