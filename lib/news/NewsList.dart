@@ -5,18 +5,31 @@ import 'package:flutter_app/details/NewsDetails.dart';
 import '../news/NewsBloc.dart';
 import '../main.dart';
 
-class NewsList extends StatelessWidget {
-  String queryText = '';
+class NewsList extends StatefulWidget {
   final String message;
   final String countryName;
-  List<Articles> articles = new List<Articles>();
 
   NewsList(this.message, this.countryName);
 
   @override
+  _NewsListState createState() => _NewsListState();
+}
+
+class _NewsListState extends State<NewsList> {
+  String queryText = '';
+  final _apiCallService = getIt<NewsBloc>();
+  List<Articles> articles = new List<Articles>();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _apiCallService.dispose();
+    print("Dispose called");
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final _apiCallService = getIt<NewsBloc>();
-    _apiCallService.getInfo(message.toLowerCase());
+    _apiCallService.getInfo(widget.message.toLowerCase());
 
     final appBar = AppBar(
       elevation: 0.0,
@@ -42,8 +55,9 @@ class NewsList extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(
-                child: Text(countryName,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                child: Text(widget.countryName,
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               ),
             ),
           ),

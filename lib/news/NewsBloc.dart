@@ -5,10 +5,12 @@ import 'package:http/http.dart' as http;
 
 // Data Model
 class NewsBloc {
-  BehaviorSubject _textChanger = new BehaviorSubject<String>.seeded("Loading data....");
+  BehaviorSubject _textChanger =
+      new BehaviorSubject<String>.seeded("Loading data....");
   PublishSubject newsData = new PublishSubject<List<Articles>>();
 
   Observable get streamTextChange$ => _textChanger.stream;
+
   Observable get streamNews$ => newsData.stream;
 
   String get currentText => _textChanger.value;
@@ -18,7 +20,8 @@ class NewsBloc {
   callAPI(String text) async {
     // This example uses the Google Books API to search for books about http.
     // https://developers.google.com/books/docs/overview
-    var url = "https://newsapi.org/v2/top-headlines?country=" + text +
+    var url = "https://newsapi.org/v2/top-headlines?country=" +
+        text +
         "&category=business&apiKey=51020d256c68430ba9bd415505885b3e";
 
     print(url);
@@ -32,11 +35,12 @@ class NewsBloc {
       print("Response: $response.");
       var jsonResponse = convert.jsonDecode(response.body);
       News news = News.fromJson(jsonResponse);
-
-      if (news.articles.length > 0) {
-        newsData.add(news.articles);
-      } else {
-        _textChanger.add('Sorry data not found');
+      if (!newsData.isClosed) {
+        if (news.articles.length > 0) {
+          newsData.add(news.articles);
+        } else {
+          _textChanger.add('Sorry data not found');
+        }
       }
     } else {
       print("Request failed with status: ${response.statusCode}.");
@@ -45,11 +49,10 @@ class NewsBloc {
 
   getInfo(String text) {
     _textChanger.add('Loading....');
-    newsData.add(null);
     callAPI(text);
   }
 
   dispose() {
-    newsData.close();
+    print("Dispose called from bloc");
   }
 }
