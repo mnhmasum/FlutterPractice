@@ -3,7 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/datamodel/News.dart';
 import 'package:flutter_app/details/NewsDetails.dart';
 import '../news/NewsBloc.dart';
-import '../main.dart';
+
+class Separator extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+      child: Container(
+        height: 1.0,
+        decoration: new BoxDecoration(color: Colors.black),
+      ),
+    );
+  }
+}
 
 class NewsList extends StatefulWidget {
   final String message;
@@ -17,7 +29,7 @@ class NewsList extends StatefulWidget {
 
 class _NewsListState extends State<NewsList> {
   String queryText = '';
-  final _apiCallService = getIt<NewsBloc>();
+  final _apiCallService = new NewsBloc();
   List<Articles> articles = new List<Articles>();
 
   @override
@@ -129,15 +141,7 @@ class _NewsListState extends State<NewsList> {
                                         ],
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 10, 0, 0),
-                                      child: Container(
-                                        height: 1.0,
-                                        decoration: new BoxDecoration(
-                                            color: Colors.black),
-                                      ),
-                                    )
+                                    Separator()
                                   ],
                                 ),
                               ),
