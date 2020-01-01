@@ -4,7 +4,6 @@ import 'package:flutter_app/datamodel/News.dart';
 import 'package:flutter_app/details/NewsDetails.dart';
 import '../news/NewsBloc.dart';
 
-
 class NewsList extends StatefulWidget {
   final String message;
   final String countryName;
@@ -15,19 +14,50 @@ class NewsList extends StatefulWidget {
   _NewsListState createState() => _NewsListState();
 }
 
-class _NewsListState extends State<NewsList> {
+class _NewsListState extends State<NewsList>
+    with SingleTickerProviderStateMixin {
   String queryText = '';
   final _apiCallService = new NewsBloc();
   List<Articles> articles = new List<Articles>();
 
+  Animation<double> animation;
+  AnimationController controller;
+
   Widget separator() {
-   return Padding(
+    return Padding(
       padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
       child: Container(
         height: 1.0,
         decoration: new BoxDecoration(color: Colors.black),
       ),
     );
+  }
+
+  Widget customImageView(String imageUrl) {
+    return Container(
+      width: 100,
+      height: 100,
+      child: CachedNetworkImage(
+        imageUrl: '$imageUrl',
+        placeholder: (context, url) =>
+            Container(width: 30, height: 30, child: Icon(Icons.autorenew)),
+        errorWidget: (context, url, error) => Icon(Icons.error),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    controller =
+        AnimationController(duration: const Duration(seconds: 2), vsync: this);
+    animation = Tween<double>(begin: 0, end: 300).animate(controller)
+      ..addListener(() {
+        setState(() {
+          // The state that has changed here is the animation object’s value.
+        });
+      });
+    controller.forward();
   }
 
   @override
@@ -108,23 +138,8 @@ class _NewsListState extends State<NewsList> {
                                       height: 80,
                                       child: Row(
                                         children: <Widget>[
-                                          Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: CachedNetworkImage(
-                                              imageUrl:
-                                                  '${(snapshot.data[index] as Articles).urlToImage}',
-                                              placeholder: (context, url) =>
-                                                  Container(
-                                                      width: 30,
-                                                      height: 30,
-                                                      child: Icon(
-                                                          Icons.autorenew)),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Icon(Icons.error),
-                                            ),
-                                          ),
+                                          customImageView(
+                                              '${(snapshot.data[index] as Articles).urlToImage}'),
                                           Expanded(
                                             child: Padding(
                                               padding:
@@ -148,6 +163,9 @@ class _NewsListState extends State<NewsList> {
                 } else {
                   return Expanded(
                     child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 8),
+                      height: animation.value,
+                      width: animation.value,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
