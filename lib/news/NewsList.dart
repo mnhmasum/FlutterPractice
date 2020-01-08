@@ -132,6 +132,22 @@ class _NewsListState extends State<NewsList>
                                 print('I was tapped! ${snapshot.data}');
                               },
                               title: Container(
+                                decoration: new BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.white70,
+                                      blurRadius: 25.0,
+                                      // soften the shadow
+                                      spreadRadius: 5.0,
+                                      //extend the shadow
+                                      offset: Offset(
+                                        15.0,
+                                        // Move to right 10  horizontally
+                                        15.0, // Move to bottom 10 Vertically
+                                      ),
+                                    )
+                                  ],
+                                ),
                                 child: Column(
                                   children: <Widget>[
                                     Container(
